@@ -6,32 +6,36 @@ Agente de desarrollo autónomo sobre **qwen2.5-coder** (vía [Ollama](https://ol
 
 Este agente ejecuta comandos de shell **sin ninguna restricción ni confirmación** (`skills/terminal_skill.py`): puede instalar paquetes, borrar archivos, hacer commits, lo que decida que necesita hacer para resolver tu orden. Es autonomía total por diseño. Recomendado:
 
-- Córrelo dentro de una carpeta de proyecto dedicada (no en `C:\`, tu carpeta de usuario completa, etc.).
-- Si vas a darle tareas de las que no quieres depender, hazlo en una VM o contenedor descartable.
+- Córrelo dentro de una carpeta de proyecto dedicada (no en `/`, tu `$HOME` completo, etc.).
+- Si vas a darle tareas de las que no quieres depender, hazlo en una instancia o contenedor descartable (por ejemplo, una instancia de [Vast.ai](https://vast.ai) dedicada a este agente).
 
 ## Requisitos
 
-1. [Ollama](https://ollama.com) instalado y corriendo (`ollama serve`).
+1. [Ollama](https://ollama.com) instalado y corriendo. En una instancia Linux (Vast.ai u otra):
+   ```bash
+   curl -fsSL https://ollama.com/install.sh | sh
+   ollama serve &
+   ```
 2. Al menos uno de estos modelos descargado (el agente usa el primero disponible, en este orden):
    ```bash
    ollama pull qwen2.5-coder:72b
    ollama pull qwen2.5-coder:32b
    ollama pull qwen2.5-coder:14b
    ```
-3. Python 3.10+.
+3. Python 3.10+ (`python3 --version`).
 
 ## Instalación
 
 ```bash
-python -m venv venv
-venv\Scripts\activate
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ## Uso
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 Cuando veas `[Qwen-Agent-Ready] ⚡ Escribe tu orden:`, todo está conectado y listo. Escribe tu instrucción en lenguaje natural y el agente planea, ejecuta y se autocorrige hasta resolverla. Escribe `salir` para terminar.
